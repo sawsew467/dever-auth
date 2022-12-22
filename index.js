@@ -11,8 +11,10 @@ const mongoose = require("mongoose");
 // Import routes
 const authRouter = require("./routes/authRoute");
 const postRouter = require("./routes/postsRoute");
+const userRoute = require("./routes/userRoute");
 // Import error handlers
 const { errorHandler } = require("./middlewares/errorHandler");
+const { verifyToken } = require("./middlewares/verifyToken");
 const app = express();
 
 // Cors
@@ -24,13 +26,15 @@ app.use(express.json());
 // Mounted the route
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/posts", postRouter);
+app.use("/api/v1/get-users", userRoute);
 
 // Unhandled Route
 app.all("*", (req, res, next) => {
-  const err = new Error("Unhandled Route");
+  const err = new Error("Unhandled Route??");
   err.statusCode = 404;
   next(err);
 });
+app.use(verifyToken);
 app.use(errorHandler);
 // app.get("/", (req, res, next) => {
 
