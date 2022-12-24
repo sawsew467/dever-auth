@@ -2,17 +2,21 @@ const User = require("../models/UserModel");
 
 exports.getAllUser = async (req, res, next) => {
   try {
-    console.log("getAllUser");
     const users = await User.find({});
-    console.log("finnish");
-    console.log(users);
     res.status(200).json({
       status: "success",
       results: users.length,
       data: {
-        users,
+        users: users.map((user) => {
+          const { _id, name, userName, email } = user;
+          return {
+            _id,
+            name,
+            userName,
+            email,
+          };
+        }),
       },
-      // data: data
     });
   } catch (error) {
     res.json(error);
@@ -23,13 +27,15 @@ exports.getAllUser = async (req, res, next) => {
 exports.getOneUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    console.log(userId);
     const user = await User.findById(userId);
-    console.log(user);
+    const { _id, name, userName, email } = user;
     res.status(200).json({
       status: "success",
       user: {
-        user,
+        _id,
+        name,
+        userName,
+        email,
       },
     });
   } catch (error) {

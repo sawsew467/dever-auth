@@ -21,8 +21,6 @@ exports.getAllPosts = async (req, res, next) => {
 exports.createOnePost = async (req, res, next) => {
   try {
     const { userId } = req.user;
-    // console.log(req);
-
     const post = await Post.create({
       ...req.body,
       content: req.body.content,
@@ -34,7 +32,6 @@ exports.createOnePost = async (req, res, next) => {
       data: { post },
     });
   } catch (error) {
-    // res.json(error);
     next(error);
   }
 };
@@ -43,12 +40,9 @@ exports.createOnePost = async (req, res, next) => {
 exports.updateOnePost = async (req, res, next) => {
   try {
     const { postId } = req.params;
-    // console.log(...req.body.updatedData);
-    // console.log(req.body.updatedData);
     const post = await Post.findByIdAndUpdate(
       postId,
       { seededList: req.body.updatedData },
-      // { seededList: ['631c8a5d3494ddb81c6f2fa9' ]},
       { new: true, runValidator: true }
     );
     console.log(post);
