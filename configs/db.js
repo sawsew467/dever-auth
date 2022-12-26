@@ -6,7 +6,7 @@ const connectDB = async () => {
     console.log("BD connecting successfully");
     const conn = await mongoose.connect(
       // process.env.DB_URI
-      "mongodb+srv://admin:sawsew123@cluster0.txq8nij.mongodb.net/?retryWrites=true&w=majority"
+      "mongodb+srv://admin:sawsew123@cluster0.8onjhcp.mongodb.net/?retryWrites=true&w=majority"
       , {
       useNewUrlParser: true,
       useUnifiedTopology: true,

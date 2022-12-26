@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 
 exports.checkCurrentUser = (req, res, next) => {
   // Access Authorization from request header
+  try {
   const Authorization = req.header("authorization");
   let token;
   if (!Authorization) {
@@ -12,7 +13,8 @@ exports.checkCurrentUser = (req, res, next) => {
     // Get token from authorization header
     token = Authorization.replace("Bearer ", "");
   }
-  try {
+  console.log(token);
+  
     const { userId } = jwt.verify(token, process.env.APP_SECRET);
     req.user = { userId };
     next();
